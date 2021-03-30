@@ -6,6 +6,7 @@ from contextlib import ExitStack
 from functools import partial
 from kivymd.uix.dialog import MDDialog
 
+
 KV = """
 Screen:
 
@@ -98,6 +99,12 @@ Screen:
                 ScrollView:
 
                     MDList:
+                        OneLineAvatarListItem:
+                            text: "Login"
+
+                            IconLeftWidget:
+                                icon: "login"
+                                on_press:
 
                         OneLineAvatarListItem:
                             text: "Info App"
@@ -112,6 +119,7 @@ Screen:
                             IconLeftWidget:
                                 icon: "contact-mail-outline"
                                 on_press: app.show_contact_dialog()
+                                            
 """
 
 
@@ -158,3 +166,4 @@ class MainApp(MDApp):
 
 
 MainApp().run()
+
