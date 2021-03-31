@@ -9,7 +9,6 @@ def scraper(state):
     results = soup.find(id="main_table_countries_today")
     content = results.find_all('td')
 
-    
     countries = []
     total_cases = []
     new_cases = []

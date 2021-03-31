@@ -5,8 +5,9 @@ from kivy.uix.boxlayout import BoxLayout
 from contextlib import ExitStack
 from functools import partial
 from kivymd.uix.dialog import MDDialog
+import pickle
 
-
+my_dict = {}
 KV = """
 Screen:
 
@@ -24,7 +25,7 @@ Screen:
                         left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
 
                     GridLayout:
-                        rows: 4
+                        rows: 5
 
                         MDLabel:
                             id: mdlab
@@ -48,6 +49,11 @@ Screen:
                             text:"Search"
                             on_press: app.change_text()
                             size_hint_x:0.2
+                        
+                        MDIconButton:
+                            id: prefer
+                            icon:"star-outline"
+                            on_press: app.add_prefer()
 
                         MDLabel:
                             id: info
@@ -151,6 +157,24 @@ class MainApp(MDApp):
                 auto_dismiss = True
             )
         self.info_dialog.open()
+        pass
+
+    def add_prefer(self):
+        if self.root.ids["mdtext"].text in my_dict:
+            my_dict[self.root.ids["mdtext"].text] = not my_dict[self.root.ids["mdtext"].text]
+        else:
+            my_dict[self.root.ids["mdtext"].text] = True
+        my_file = open("myDictionary.pickle","wb")
+        pickle.dump(my_dict,my_file)
+        my_file.close()
+        self.read_prefer()
+        pass
+
+    def read_prefer(self):
+        my_file = open("myDictionary.pickle","rb")
+        my_dict = pickle.load(my_file)
+        my_file.close()
+        print(my_dict)
         pass
 
     def show_contact_dialog(self):
