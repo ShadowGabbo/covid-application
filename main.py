@@ -6,6 +6,8 @@ from contextlib import ExitStack
 from functools import partial
 from kivymd.uix.dialog import MDDialog
 import pickle
+from kivy.uix.image import Image
+from kivy.uix.behaviors import ButtonBehavior
 
 my_dict = {}
 KV = """
@@ -25,7 +27,7 @@ Screen:
                         left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
 
                     GridLayout:
-                        rows: 5
+                        rows: 6
 
                         MDLabel:
                             id: mdlab
@@ -49,11 +51,11 @@ Screen:
                             text:"Search"
                             on_press: app.change_text()
                             size_hint_x:0.2
-                        
+
                         MDIconButton:
-                            id: prefer
-                            icon:"star-outline"
-                            on_press: app.add_prefer()
+                            icon:"atlas://data/images/defaulttheme/checkbox_off"
+                            id : icon
+                            on_press:app.on_press()
 
                         MDLabel:
                             id: info
@@ -127,8 +129,7 @@ Screen:
                                 on_press: app.show_contact_dialog()
                                             
 """
-
-
+        
 class MainApp(MDApp):
 
     info_dialog = None
@@ -159,7 +160,7 @@ class MainApp(MDApp):
         self.info_dialog.open()
         pass
 
-    def add_prefer(self):
+    def on_press(self):
         if self.root.ids["mdtext"].text in my_dict:
             my_dict[self.root.ids["mdtext"].text] = not my_dict[self.root.ids["mdtext"].text]
         else:
@@ -168,6 +169,11 @@ class MainApp(MDApp):
         pickle.dump(my_dict,my_file)
         my_file.close()
         self.read_prefer()
+
+        if my_dict[self.root.ids["mdtext"].text]==True:
+            self.root.ids["icon"].icon = "atlas://data/images/defaulttheme/checkbox_on" 
+        else:
+            self.root.ids["icon"].icon = "atlas://data/images/defaulttheme/checkbox_off" 
         pass
 
     def read_prefer(self):
