@@ -1,13 +1,11 @@
+import kivy
 from kivymd.app import MDApp
 from kivy.lang import Builder
 from scraper import *
 from kivy.uix.boxlayout import BoxLayout
-from contextlib import ExitStack
-from functools import partial
 from kivymd.uix.dialog import MDDialog
 import pickle
-from kivy.uix.image import Image
-from kivy.uix.behaviors import ButtonBehavior
+from kivymd.uix.button import MDIconButton
 
 my_dict = {}
 KV = """
@@ -49,19 +47,23 @@ Screen:
                         MDRaisedButton:
                             id: mdbu
                             text:"Search"
-                            on_press: app.change_text()
+                            on_press: app.search_press()
                             size_hint_x:0.2
 
                         FloatLayout:
-                            MDIconButton:
-                                icon:"atlas://data/images/defaulttheme/checkbox_off"
-                                id : icon
-                                on_press:app.on_press()
-                                pos_hint: {"x":0.3,"center_y":0.6}
+                            id : icon 
+                            
+                            MDLabel:
+                                id : prefer
+                                color:"white"
+                                pos_hint : {"center_x":0.85,"center_y":0.5}
+                                text:""
+
 
                         MDLabel:
                             id: info
-                            text:""
+                            text:"\\n\\n\\n\\n\\n\\n\\n\\n\\n"
+
                             font_style: "H6"
                             padding_y:30
                             padding_x:250
@@ -145,40 +147,54 @@ class MainApp(MDApp):
         self.theme_cls.primary_palette = "Green"
         return Builder.load_string(KV)
 
-    def change_text(self):
-        self.root.ids["mdlab"].text = "Data for "+self.root.ids["mdtext"].text 
-        self.scraping()
-
     def scraping(self):
         new_text= scraper(self.root.ids["mdtext"].text)
         self.root.ids["info"].text = new_text
+
+    def create_Button(self,value):
+        button = MDIconButton()
+        button.icon = "star-outline"
+        print("before")
+        button.bind(on_press = self.icon_press(button,value))
+        print("after")
+        button.pos_hint = {"center_x":0.5,"center_y":0.5}
+        self.root.ids['icon'].add_widget(button)
+        self.scraping()
+        pass
+
+    def search_press(self):
+        self.root.ids["mdlab"].text = "Data for "+self.root.ids["mdtext"].text
+        self.root.ids["prefer"].text = "Add to prefer: "
+        if self.root.ids["mdtext"].text in my_dict:
+            my_dict[self.root.ids["mdtext"].text] = not my_dict[self.root.ids["mdtext"].text]
+        else:
+            my_dict[self.root.ids["mdtext"].text] = True
+        
+        my_file = open("myDictionary.pickle","wb")
+        pickle.dump(my_dict,my_file)
+        my_file.close()
+        self.read_prefer()
+        value = True
+        my_dict[self.root.ids["mdtext"].text] = value
+        self.create_Button(value)
+
+    def icon_press(button,self,value):
+        print("inside")
+        if value==True:
+            button.icon = "star-outline" 
+        else:
+            button.icon = "star-off-outline" 
+        pass
 
     def show_app_info_dialog(self):
         app_info= "Covid tracker\n"
         if not self.info_dialog:
             self.info_dialog = MDDialog(
                 title = "App Information",
-                #md_bg_color  = [32,2323,232,0],
                 text = app_info,
                 auto_dismiss = True
             )
         self.info_dialog.open()
-        pass
-
-    def on_press(self):
-        if self.root.ids["mdtext"].text in my_dict:
-            my_dict[self.root.ids["mdtext"].text] = not my_dict[self.root.ids["mdtext"].text]
-        else:
-            my_dict[self.root.ids["mdtext"].text] = True
-        my_file = open("myDictionary.pickle","wb")
-        pickle.dump(my_dict,my_file)
-        my_file.close()
-        self.read_prefer()
-
-        if my_dict[self.root.ids["mdtext"].text]==True:
-            self.root.ids["icon"].icon = "atlas://data/images/defaulttheme/checkbox_on" 
-        else:
-            self.root.ids["icon"].icon = "atlas://data/images/defaulttheme/checkbox_off" 
         pass
 
     def read_prefer(self):
@@ -193,7 +209,6 @@ class MainApp(MDApp):
         if not self.contact_dialog:
             self.contact_dialog = MDDialog(
                 title = "My Contact",
-                #md_bg_color  = [32,2323,232,0],
                 text = app_info,
                 auto_dismiss = True
             )
