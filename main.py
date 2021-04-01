@@ -27,7 +27,7 @@ Screen:
                         left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
 
                     GridLayout:
-                        rows: 6
+                        rows: 5
 
                         MDLabel:
                             id: mdlab
@@ -52,10 +52,12 @@ Screen:
                             on_press: app.change_text()
                             size_hint_x:0.2
 
-                        MDIconButton:
-                            icon:"atlas://data/images/defaulttheme/checkbox_off"
-                            id : icon
-                            on_press:app.on_press()
+                        FloatLayout:
+                            MDIconButton:
+                                icon:"atlas://data/images/defaulttheme/checkbox_off"
+                                id : icon
+                                on_press:app.on_press()
+                                pos_hint: {"x":0.3,"center_y":0.6}
 
                         MDLabel:
                             id: info
@@ -123,10 +125,11 @@ Screen:
                         
                         OneLineAvatarListItem:
                             text: "Contact"
+                            on_press: app.show_contact_dialog()
 
                             IconLeftWidget:
                                 icon: "contact-mail-outline"
-                                on_press: app.show_contact_dialog()
+
                                             
 """
         
@@ -154,6 +157,7 @@ class MainApp(MDApp):
         if not self.info_dialog:
             self.info_dialog = MDDialog(
                 title = "App Information",
+                #md_bg_color  = [32,2323,232,0],
                 text = app_info,
                 auto_dismiss = True
             )
@@ -188,6 +192,7 @@ class MainApp(MDApp):
         if not self.contact_dialog:
             self.contact_dialog = MDDialog(
                 title = "My Contact",
+                #md_bg_color  = [32,2323,232,0],
                 text = app_info,
                 auto_dismiss = True
             )
