@@ -132,7 +132,8 @@ Screen:
 
                                             
 """
-        
+
+#added a class
 class MainApp(MDApp):
 
     info_dialog = None
