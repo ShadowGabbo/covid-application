@@ -7,7 +7,9 @@ from kivymd.uix.dialog import MDDialog
 import pickle
 from kivymd.uix.button import MDIconButton
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.clock import Clock
 
+Clock.max_iteration = 30
 my_dict = {}
 KV = """
 Screen:
@@ -32,9 +34,9 @@ Screen:
 
                         MDLabel:
                             id: mdlab
-                            padding_y:30
+                            padding_y:50
                             text:"Welcome to Covid Application"
-                            font_style: "H4"
+                            font_style: "H3"
                             color: "white"
                             size_hint_y: None
                             height: self.texture_size[1]
@@ -51,39 +53,36 @@ Screen:
                             halign:"center"
                             size_hint_x:0.4
                             size_hint_y:0.15
-                            pos_hint:{"center_x":0.40, "center_y":1.4}
+                            pos_hint:{"center_x":0.45, "center_y":1.4}
 
                         MDRoundFlatButton:
                             id: mdbu
                             text:"Search"
                             on_press: app.search_press()
                             size_hint_x:0.1
-                            pos_hint:{"center_x":0.70, "center_y":1.4}
-                            mode:"round"
+                            pos_hint:{"center_x":0.75, "center_y":1.4}
                             
- 
                         FloatLayout:
                             id : icon 
  
                             MDLabel:
                                 id : prefer
                                 color:"white"
-                                pos_hint : {"center_x":0.85,"center_y":0.5}
+                                font_style: "H6"
+                                pos_hint:{"center_x":0.89, "center_y":1.1}
                                 text:""
  
- 
-                        MDLabel:
-                            id: info
-                            text:"\\n\\n\\n\\n\\n\\n\\n\\n\\n"
- 
-                            font_style: "H6"
-                            padding_y:30
-                            padding_x:250
-                            color: "white"
-                            size_hint_y:None
-                            height: self.texture_size[1]
-                            text_size: self.width, None      
-                            pos_hint: {"center_y":0.3}
+                            MDLabel:
+                                id: info
+                                text:"\\n\\n\\n\\n\\n\\n\\n\\n\\n"
+                                font_style: "H6"
+                                padding_y:30
+                                padding_x:250
+                                color: "white"
+                                size_hint_y:None
+                                height: self.texture_size[1]
+                                text_size: self.width, None      
+                                pos_hint:{"center_x":0.5, "center_y":0.6}
  
         MDNavigationDrawer:
             id: nav_drawer
@@ -171,7 +170,7 @@ class MainApp(MDApp):
         self.button_ = button
         self.value_ = value
         print(button, "the button")
-        button.pos_hint = {"center_x": 0.5, "center_y": 0.5}
+        button.pos_hint = {"center_x": 0.56, "center_y": 1.1}
         self.root.ids['icon'].add_widget(button)
         button.bind(on_press=self.icon_press)
         self.scraping()
