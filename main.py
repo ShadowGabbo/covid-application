@@ -6,7 +6,8 @@ from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.dialog import MDDialog
 import pickle
 from kivymd.uix.button import MDIconButton
- 
+from kivy.uix.anchorlayout import AnchorLayout
+
 my_dict = {}
 KV = """
 Screen:
@@ -24,9 +25,11 @@ Screen:
                         elevation: 5
                         left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
  
-                    GridLayout:
-                        rows: 5
- 
+                    
+                    AnchorLayout:
+                        anchor_x : "center"
+                        anchor_y : "top"
+
                         MDLabel:
                             id: mdlab
                             padding_y:30
@@ -37,18 +40,27 @@ Screen:
                             height: self.texture_size[1]
                             text_size: self.width, None
                             halign:"center"
- 
-                        MDTextField:
+
+                    FloatLayout:
+                        MDTextFieldRound:
                             id: mdtext
-                            hint_text:"Search a state to see Covid stats for it"
-                            mode: "rectangle"
+                            icon_left: "search-web"
+                            hint_text:"Search a state"
+                            normal_color: app.theme_cls.primary_color
+                            color_active: 0, 1, 0, 1
                             halign:"center"
- 
-                        MDRaisedButton:
+                            size_hint_x:0.4
+                            size_hint_y:0.15
+                            pos_hint:{"center_x":0.40, "center_y":1.4}
+
+                        MDRoundFlatButton:
                             id: mdbu
                             text:"Search"
                             on_press: app.search_press()
-                            size_hint_x:0.2
+                            size_hint_x:0.1
+                            pos_hint:{"center_x":0.70, "center_y":1.4}
+                            mode:"round"
+                            
  
                         FloatLayout:
                             id : icon 
