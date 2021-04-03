@@ -7,8 +7,15 @@ from kivymd.uix.dialog import MDDialog
 import pickle
 from kivymd.uix.button import MDIconButton
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.screenmanager import ScreenManager,Screen
 
-class MainApp(MDApp):
+class SecondWindow(Screen):
+    pass
+
+class WindowManager(ScreenManager):
+    pass
+
+class FirstWindow(Screen):
     count = 0
     info_dialog = None
     contact_dialog = None
@@ -113,5 +120,11 @@ class MainApp(MDApp):
         self.favorites_dialog.open()
         self.favorites_dialog = False
         pass
- 
-MainApp().run()
+
+class Myapp(MDApp):
+    def build(self):
+        return Builder.load_file("app_kv.kv")
+
+
+if __name__ == "__main__":
+    Myapp().run()
