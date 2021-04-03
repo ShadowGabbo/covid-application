@@ -76,8 +76,9 @@ WindowManager:
                             color: "white"
 
                     Button:
-                        text:"next screen"
-                        font_size: 32
+                        size_hint_y:0.5
+                        text:"All Preferites"
+                        font_size: 22
                         on_release:
                             app.root.current = "second"
                             root.manager.transition.direction = "left"
@@ -148,16 +149,48 @@ WindowManager:
 
 <SecondWindow>:
     name: "second"
-    Label:
-        text: "Second screen"
-        font_size: 32
-                            
-    Button:
-        text:"Go back"
-        font_size: 32
-        on_release:
-            app.root.current = "first"
-            root.manager.transition.direction = "right"
+    MDBoxLayout
+        MDLabel:
+            size_hint_y:1.8
+            halign: "center"
+            id: prefer_title
+            text:"Data for prefer"
+            font_size:32
+            color: "white"
+
+    MDBoxLayout:
+        size_hint_y: None       
+        adaptive_height: True  
+        Button:
+            size_hint_y: 0.6
+            text:"Go back"
+            font_size: 22
+            on_release:
+                app.root.current = "first"
+                root.manager.transition.direction = "right"
+    
+
+    MDBoxLayout:      
+        padding: dp(20), dp(0), dp(20), dp(0)
+        size_hint_x:0.3
+        size_hint_y:0.1
+        pos_hint:{"center_y":0.8,"center_x":0.5}
+        Button:
+            halign:"center"
+            pos_hint:{"center_y":0.35}
+            text: "Generate all the stats"
+            on_press: app.prefer_text()
+
+    MDBoxLayout:
+        padding: dp(20), dp(0), dp(20), dp(0)
+        pos_hint:{"center_y":0.8}
+        MDLabel:
+            id: text_prefer
+            font_style: "H6"
+            color: "white"
+            text:""
+
+        
 
     
     

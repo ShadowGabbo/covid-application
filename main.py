@@ -102,7 +102,14 @@ class MainApp(MDApp):
                 auto_dismiss=True
             )
         self.contact_dialog.open()
- 
+
+    def prefer_text(self):
+        self.text_prefer = ""
+        for item in self.my_dict:
+            if self.my_dict[item]==True:
+                self.text_prefer+=scraper(item)
+        self.root.ids["text_prefer"].text=self.text_prefer
+
     def show_favorites_dialog(self):
         text= ""
         self.app_favorites = ""
