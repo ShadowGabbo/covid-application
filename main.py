@@ -16,6 +16,12 @@ class WindowManager(ScreenManager):
     pass
 
 class FirstWindow(Screen):
+    pass
+
+class Blank_Page(Screen):
+    pass
+
+class MainApp(MDApp):
     count = 0
     info_dialog = None
     contact_dialog = None
@@ -33,7 +39,6 @@ class FirstWindow(Screen):
     def scraping(self):
         new_text = scraper(self.root.ids["mdtext"].text)
         self.root.ids["info"].text = new_text
-        pass
  
     def create_Button(self,count):
         if count==1:
@@ -44,7 +49,6 @@ class FirstWindow(Screen):
             self.root.ids['icon'].add_widget(button)
             button.bind(on_press=self.icon_press)
         self.scraping()
-        pass
  
     def search_press(self):
         self.count+=1
@@ -57,7 +61,6 @@ class FirstWindow(Screen):
         self.read_prefer()
         self.create_Button(self.count)
         self.reset_prefer()
-        pass
  
     def icon_press(self,*args,**kwargs):
         self.read_prefer()
@@ -68,20 +71,17 @@ class FirstWindow(Screen):
             self.my_dict[self.root.ids["mdtext"].text]=False
             self.button_.icon = "star-outline"
         print(self.my_dict)
-        pass
  
     def reset_prefer(self,*args,**kwargs):
         if self.my_dict[self.root.ids["mdtext"].text]==True:
             self.button_.icon = "star-off"
         else:
             self.button_.icon = "star-outline"
-        pass
 
     def read_prefer(self):
         my_file = open("myDictionary.pickle", "rb")
         my_dict = pickle.load(my_file)
         my_file.close()
-        pass
  
     def show_app_info_dialog(self):
         app_info = "Covid tracker\n"
@@ -92,7 +92,6 @@ class FirstWindow(Screen):
                 auto_dismiss=True
             )
         self.info_dialog.open()
-        pass
  
     def show_contact_dialog(self):
         app_contact = "Contact: gabriele.sarti1@studenti.unimi.it\n"
@@ -103,7 +102,6 @@ class FirstWindow(Screen):
                 auto_dismiss=True
             )
         self.contact_dialog.open()
-        pass
  
     def show_favorites_dialog(self):
         text= ""
@@ -119,12 +117,7 @@ class FirstWindow(Screen):
             )
         self.favorites_dialog.open()
         self.favorites_dialog = False
-        pass
-
-class Myapp(MDApp):
-    def build(self):
-        return Builder.load_file("app_kv.kv")
 
 
 if __name__ == "__main__":
-    Myapp().run()
+    MainApp().run()
