@@ -111,10 +111,11 @@ Screen:
                     MDList:
                         OneLineAvatarListItem:
                             text: "Favorites"
+                            on_press:app.show_favorites_dialog()
  
                             IconLeftWidget:
                                 icon: "star-outline"
-                                on_press:app.show_favorites_dialog()
+                                
  
                         OneLineAvatarListItem:
                             text: "Info App"
@@ -126,6 +127,7 @@ Screen:
                         OneLineAvatarListItem:
                             text: "Contact"
                             on_press: app.show_contact_dialog()
- 
+                 
                             IconLeftWidget:
                                 icon: "contact-mail-outline"
+   

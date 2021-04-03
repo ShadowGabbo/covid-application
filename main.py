@@ -12,6 +12,7 @@ class MainApp(MDApp):
     count = 0
     info_dialog = None
     contact_dialog = None
+    favorites_dialog = None
     button_ = None
     value_ = None
     my_dict = {}
@@ -32,7 +33,6 @@ class MainApp(MDApp):
             button = MDIconButton()
             button.icon = "star-outline"
             self.button_ = button
-            print(button, "the button")
             button.pos_hint = {"center_x": 0.6, "center_y": 0}
             self.root.ids['icon'].add_widget(button)
             button.bind(on_press=self.icon_press)
@@ -50,20 +50,17 @@ class MainApp(MDApp):
         self.read_prefer()
         self.create_Button(self.count)
         self.reset_prefer()
-        print(self.my_dict)
         pass
  
     def icon_press(self,*args,**kwargs):
-        print(self.my_dict)
         self.read_prefer()
         if self.my_dict[self.root.ids["mdtext"].text]==False:
-            print("here")
             self.my_dict[self.root.ids["mdtext"].text]=True
             self.button_.icon = "star-off"
         else:
-            print("yey")
             self.my_dict[self.root.ids["mdtext"].text]=False
             self.button_.icon = "star-outline"
+        print(self.my_dict)
         pass
  
     def reset_prefer(self,*args,**kwargs):
@@ -95,24 +92,26 @@ class MainApp(MDApp):
         if not self.contact_dialog:
             self.contact_dialog = MDDialog(
                 title="My Contact",
-                text=app_info,
+                text=app_contact,
                 auto_dismiss=True
             )
         self.contact_dialog.open()
         pass
  
     def show_favorites_dialog(self):
-        for item in my_dict:
-            if my_dict[item]==True:
-                print(item)
- 
+        text= ""
+        self.app_favorites = ""
+        for item in self.my_dict:
+            if self.my_dict[item]==True:
+                self.app_favorites=self.app_favorites+"\n"+item 
         if not self.favorites_dialog:
             self.favorites_dialog = MDDialog(
                 title="List of favorites",
-                text=app_favorites,
+                text=self.app_favorites,
                 auto_dismiss=True
             )
         self.favorites_dialog.open()
+        self.favorites_dialog = False
         pass
  
 MainApp().run()
