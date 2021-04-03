@@ -1,0 +1,131 @@
+Screen:
+ 
+    NavigationLayout:
+ 
+        ScreenManager:
+ 
+            Screen:
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: dp(8)
+                    MDToolbar:
+                        title: "CovidApp"
+                        elevation: 5
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
+                    MDBoxLayout:
+                        size_hint_y: None
+                        height: mdlab.texture_size[1]
+                        MDLabel:
+                            halign:"center"
+                            valign:"top"
+                            padding_y:50
+                            id: mdlab
+                            text:"Welcome to Covid Application"
+                            font_style: "H3"
+                            color: "white"
+
+                    AnchorLayout:
+                        size_hint_y: 0.2
+                        height: mdtext.height
+                        MDBoxLayout:
+                            adaptive_height: True
+                            padding: dp(40), dp(0), dp(40), dp(0)
+                            pos_hint:{"center_x":0.45, "center_y":1.4}
+                            MDTextFieldRound:
+                                id: mdtext
+                                icon_left: "search-web"
+                                hint_text:"Search a state"
+                                normal_color: app.theme_cls.primary_color
+                                color_active: 0, 1, 0, 1
+
+                    AnchorLayout:
+                        size_hint_y: None
+                        height: mdbu.height
+                        MDRoundFlatButton:
+                            id: mdbu
+                            text:"Search"
+                            on_press: app.search_press()
+ 
+                    FloatLayout:
+                        id : icon 
+                    MDBoxLayout:
+                        padding: dp(0), -dp(8), dp(30), dp(10)
+                        MDLabel:
+                            id : prefer
+                            halign: 'right'
+                            color:"white"
+                            font_style: "H6"
+                            text:""
+ 
+                    MDBoxLayout:
+                        size_hint_y:None
+                        height: info.texture_size[1]
+                        MDLabel:
+                            id: info
+                            text:"\\n\\n\\n\\n\\n\\n\\n\\n\\n"
+                            font_style: "H6"
+                            padding_y:30
+                            padding_x:250
+                            color: "white"
+ 
+        MDNavigationDrawer:
+            id: nav_drawer
+ 
+            BoxLayout:
+                orientation: "vertical"
+                padding: "8dp"
+                spacing: "8dp"
+                color:"white"
+ 
+                AnchorLayout:
+                    anchor_x: "left"
+                    size_hint_y: None
+                    height: avatar.height
+ 
+                    Image:
+                        id: avatar
+                        size_hint: None, None
+                        size: "56dp", "56dp"
+                        source: "data/logo/kivy-icon-256.png"
+
+                MDBoxLayout:
+                    size_hint_y: None
+                    height: title.texture_size[1]
+                    MDLabel:
+                        id: title
+                        text: "CovidApp App 0.1"
+                        color: "white"
+                        font_style: "Button"
+ 
+                MDBoxLayout:
+                    size_hint_y: None
+                    height: email_label.texture_size[1]
+                    MDLabel:
+                        id: email_label
+                        text: "gabriele.sarti1@studenti.unimi.it"
+                        color: "white"
+                        font_style: "Caption"
+ 
+                ScrollView:
+ 
+                    MDList:
+                        OneLineAvatarListItem:
+                            text: "Favorites"
+ 
+                            IconLeftWidget:
+                                icon: "star-outline"
+                                on_press:app.show_favorites_dialog()
+ 
+                        OneLineAvatarListItem:
+                            text: "Info App"
+                            on_press: app.show_app_info_dialog()
+ 
+                            IconLeftWidget:
+                                icon: "information-outline"
+ 
+                        OneLineAvatarListItem:
+                            text: "Contact"
+                            on_press: app.show_contact_dialog()
+ 
+                            IconLeftWidget:
+                                icon: "contact-mail-outline"
