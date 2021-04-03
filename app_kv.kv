@@ -18,18 +18,18 @@ Screen:
                         MDLabel:
                             halign:"center"
                             valign:"top"
-                            padding_y:50
                             id: mdlab
                             text:"Welcome to Covid Application"
                             font_style: "H3"
                             color: "white"
+                            padding_y: 30
 
                     AnchorLayout:
                         size_hint_y: 0.2
                         height: mdtext.height
                         MDBoxLayout:
                             adaptive_height: True
-                            padding: dp(40), dp(0), dp(40), dp(0)
+                            padding: dp(20), dp(0), dp(40), dp(40)
                             pos_hint:{"center_x":0.45, "center_y":1.4}
                             MDTextFieldRound:
                                 id: mdtext
@@ -47,12 +47,13 @@ Screen:
                             on_press: app.search_press()
  
                     FloatLayout:
-                        id : icon 
+                        id: icon 
+                
                     MDBoxLayout:
-                        padding: dp(0), -dp(8), dp(30), dp(10)
+                        padding: dp(0), dp(20), dp(0), dp(20)
                         MDLabel:
-                            id : prefer
-                            halign: 'right'
+                            id: prefer
+                            halign: 'center'
                             color:"white"
                             font_style: "H6"
                             text:""
@@ -62,7 +63,6 @@ Screen:
                         height: info.texture_size[1]
                         MDLabel:
                             id: info
-                            text:"\\n\\n\\n\\n\\n\\n\\n\\n\\n"
                             font_style: "H6"
                             padding_y:30
                             padding_x:250

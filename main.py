@@ -8,8 +8,8 @@ import pickle
 from kivymd.uix.button import MDIconButton
 from kivy.uix.anchorlayout import AnchorLayout
 
-# added a class
 class MainApp(MDApp):
+    count = 0
     info_dialog = None
     contact_dialog = None
     button_ = None
@@ -25,45 +25,54 @@ class MainApp(MDApp):
     def scraping(self):
         new_text = scraper(self.root.ids["mdtext"].text)
         self.root.ids["info"].text = new_text
+        pass
  
-    def create_Button(self, value):
-        button = MDIconButton()
-        button.icon = "star-outline"
-        self.button_ = button
-        self.value_ = value
-        print(button, "the button")
-        button.pos_hint = {"center_x": 0.56, "center_y": 1.1}
-        self.root.ids['icon'].add_widget(button)
-        button.bind(on_press=self.icon_press)
+    def create_Button(self,count):
+        if count==1:
+            button = MDIconButton()
+            button.icon = "star-outline"
+            self.button_ = button
+            print(button, "the button")
+            button.pos_hint = {"center_x": 0.6, "center_y": 0}
+            self.root.ids['icon'].add_widget(button)
+            button.bind(on_press=self.icon_press)
         self.scraping()
+        pass
  
     def search_press(self):
-        self.root.ids["mdlab"].text = "Data for " + self.root.ids["mdtext"].text
+        self.count+=1
         self.root.ids["prefer"].text = "Add to prefer: "
-        if self.root.ids["mdtext"].text in self.my_dict:
-            self.my_dict[self.root.ids["mdtext"].text] = not self.my_dict[self.root.ids["mdtext"].text]
-        else:
-            self.my_dict[self.root.ids["mdtext"].text] = True
+        if not self.root.ids["mdtext"].text in self.my_dict:
+            self.my_dict[self.root.ids["mdtext"].text] = False
         my_file = open("myDictionary.pickle", "wb")
         pickle.dump(self.my_dict, my_file)
         my_file.close()
         self.read_prefer()
-        value = True
-        self.my_dict[self.root.ids["mdtext"].text] = value
-        self.create_Button(value)
+        self.create_Button(self.count)
+        self.reset_prefer()
+        print(self.my_dict)
+        pass
  
     def icon_press(self,*args,**kwargs):
-        print(my_dict)
-        if self.root.ids["mdtext"].text in my_dict:
-            my_dict[self.root.ids["mdtext"].text] = not my_dict[self.root.ids["mdtext"].text]
-        else:
-            my_dict[self.root.ids["mdtext"].text] = True
+        print(self.my_dict)
         self.read_prefer()
-        if my_dict[self.root.ids["mdtext"].text]==True:
-            self.button_.icon = "star-outline"
-        else:
+        if self.my_dict[self.root.ids["mdtext"].text]==False:
+            print("here")
+            self.my_dict[self.root.ids["mdtext"].text]=True
             self.button_.icon = "star-off"
+        else:
+            print("yey")
+            self.my_dict[self.root.ids["mdtext"].text]=False
+            self.button_.icon = "star-outline"
+        pass
  
+    def reset_prefer(self,*args,**kwargs):
+        if self.my_dict[self.root.ids["mdtext"].text]==True:
+            self.button_.icon = "star-off"
+        else:
+            self.button_.icon = "star-outline"
+        pass
+
     def read_prefer(self):
         my_file = open("myDictionary.pickle", "rb")
         my_dict = pickle.load(my_file)
@@ -93,7 +102,6 @@ class MainApp(MDApp):
         pass
  
     def show_favorites_dialog(self):
-        # print(bella)
         for item in my_dict:
             if my_dict[item]==True:
                 print(item)
