@@ -37,8 +37,8 @@ class MainApp(MDApp):
         return Builder.load_file("app_kv.kv")
  
     def scraping(self):
-        new_text = scraper(self.root.ids["mdtext"].text)
-        self.root.ids["info"].text = new_text
+        new_text = scraper(self.root.get_screen("first").ids["mdtext"].text)
+        self.root.get_screen("first").ids["info"].text = new_text
  
     def create_Button(self,count):
         if count==1:
@@ -46,15 +46,15 @@ class MainApp(MDApp):
             button.icon = "star-outline"
             self.button_ = button
             button.pos_hint = {"center_x": 0.6, "center_y": 0}
-            self.root.ids['icon'].add_widget(button)
+            self.root.get_screen("first").ids['icon'].add_widget(button)
             button.bind(on_press=self.icon_press)
         self.scraping()
  
     def search_press(self):
         self.count+=1
-        self.root.ids["prefer"].text = "Add to prefer: "
-        if not self.root.ids["mdtext"].text in self.my_dict:
-            self.my_dict[self.root.ids["mdtext"].text] = False
+        self.root.get_screen("first").ids["prefer"].text = "Add to prefer: "
+        if not self.root.get_screen("first").ids["mdtext"].text in self.my_dict:
+            self.my_dict[self.root.get_screen("first").ids["mdtext"].text] = False
         my_file = open("myDictionary.pickle", "wb")
         pickle.dump(self.my_dict, my_file)
         my_file.close()
@@ -64,16 +64,16 @@ class MainApp(MDApp):
  
     def icon_press(self,*args,**kwargs):
         self.read_prefer()
-        if self.my_dict[self.root.ids["mdtext"].text]==False:
-            self.my_dict[self.root.ids["mdtext"].text]=True
+        if self.my_dict[self.root.get_screen("first").ids["mdtext"].text]==False:
+            self.my_dict[self.root.get_screen("first").ids["mdtext"].text]=True
             self.button_.icon = "star-off"
         else:
-            self.my_dict[self.root.ids["mdtext"].text]=False
+            self.my_dict[self.root.get_screen("first").ids["mdtext"].text]=False
             self.button_.icon = "star-outline"
         print(self.my_dict)
  
     def reset_prefer(self,*args,**kwargs):
-        if self.my_dict[self.root.ids["mdtext"].text]==True:
+        if self.my_dict[self.root.get_screen("first").ids["mdtext"].text]==True:
             self.button_.icon = "star-off"
         else:
             self.button_.icon = "star-outline"
@@ -108,7 +108,7 @@ class MainApp(MDApp):
         for item in self.my_dict:
             if self.my_dict[item]==True:
                 self.text_prefer+=scraper(item)
-        self.root.ids["text_prefer"].text=self.text_prefer
+        self.root.get_screen("first").ids["text_prefer"].text=self.text_prefer
 
     def show_favorites_dialog(self):
         text= ""
