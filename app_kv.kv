@@ -29,52 +29,53 @@ WindowManager:
                             color: "white"
                             padding_y: 30
 
-                    AnchorLayout:
-                        size_hint_y: 0.2
-                        height: mdtext.height
-                        MDBoxLayout:
-                            adaptive_height: True
-                            padding: dp(20), dp(0), dp(40), dp(40)
-                            pos_hint:{"center_x":0.45, "center_y":1.4}
-                            MDTextFieldRound:
-                                id: mdtext
-                                icon_left: "search-web"
-                                hint_text:"Search a state"
-                                normal_color: app.theme_cls.primary_color
-                                color_active: 0, 1, 0, 1
+                
+                    MDBoxLayout:
+                        padding: dp(250), dp(0), dp(250), dp(0)
+                        MDTextFieldRound:
+                            id: mdtext
+                            width:1200
+                            halign: "left"
+                            size_hint: None, .6
+                            font_size: 32
+                            icon_left: "search-web"
+                            hint_text:"Search a state"
+                            normal_color: app.theme_cls.primary_color
+                            color_active: 0, 1, 0, 1
 
-                    AnchorLayout:
-                        size_hint_y: None
-                        height: mdbu.height
+                    MDBoxLayout:   
                         MDRoundFlatButton:
                             id: mdbu
                             text:"Search"
+                            pos_hint:{"center_y":1.7,"center_x":3.2}
+                            size_hint: None, 0.5
                             on_press: app.search_press()
-    
+                
+                #Add a scoll
                     FloatLayout:
                         id: icon 
                     
                     MDBoxLayout:
                         padding: dp(0), dp(20), dp(0), dp(20)
-                        MDLabel:
+                        Label:
                             id: prefer
                             halign: 'center'
                             color:"white"
-                            font_style: "H6"
+                            font_style: "H4"
                             text:""
     
                     MDBoxLayout:
                         size_hint_y:None
-                        height: info.texture_size[1]
+                        halign: "center"
                         MDLabel:
                             id: info
-                            font_style: "H6"
-                            padding_y:30
+                            font_style:"H4"
                             padding_x:250
                             color: "white"
+                            height: 8 * dp(85)
 
                     Button:
-                        size_hint_y:0.5
+                        size_hint_y:0.7
                         text:"All Preferites"
                         font_size: 22
                         on_release:
@@ -160,7 +161,7 @@ WindowManager:
         size_hint_y: None       
         adaptive_height: True  
         Button:
-            size_hint_y: 0.6
+            size_hint_y: 0.8
             text:"Go back"
             font_size: 22
             on_release:
