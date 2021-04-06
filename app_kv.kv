@@ -29,29 +29,30 @@ WindowManager:
                             color: "white"
                             padding_y: 30
 
-                
-                    MDBoxLayout:
-                        padding: dp(250), dp(0), dp(250), dp(0)
-                        MDTextFieldRound:
-                            id: mdtext
-                            width:1200
-                            halign: "left"
-                            size_hint: None, .6
-                            font_size: 32
-                            icon_left: "search-web"
-                            hint_text:"Search a state"
-                            normal_color: app.theme_cls.primary_color
-                            color_active: 0, 1, 0, 1
+                    GridLayout:
+                        rows:2
+                        MDBoxLayout:
+                            padding: dp(150), dp(0), dp(50), dp(0)
+                            MDTextFieldRound:
+                                id: mdtex7
+                                width:700
+                                halign: "left"
+                                size_hint: None, .8
+                                font_size: 32
+                                icon_left: "search-web"
+                                hint_text:"Search a state"
+                                normal_color: app.theme_cls.primary_color
+                                color_active: 0, 1, 0, 1
 
-                    MDBoxLayout:   
-                        MDRoundFlatButton:
-                            id: mdbu
-                            text:"Search"
-                            pos_hint:{"center_y":1.7,"center_x":3.2}
-                            size_hint: None, 0.5
-                            on_press: app.search_press()
-                
-                #Add a scoll
+                        MDBoxLayout:   
+                            pos_hint:{"center_y":0.8,"center_x":0.8}
+                            padding: dp(950), dp(0), dp(350), dp(0)
+                            MDRoundFlatButton:
+                                id: mdbu
+                                text:"Search"
+                                size_hint: None, 1
+                                on_press: app.search_press()
+                                
                     FloatLayout:
                         id: icon 
                     

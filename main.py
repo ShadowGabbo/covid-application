@@ -108,7 +108,7 @@ class MainApp(MDApp):
         for item in self.my_dict:
             if self.my_dict[item]==True:
                 self.text_prefer+=scraper(item)
-        self.root.get_screen("first").ids["text_prefer"].text=self.text_prefer
+        self.root.get_screen("second").ids["text_prefer"].text=self.text_prefer
 
     def show_favorites_dialog(self):
         text= ""
