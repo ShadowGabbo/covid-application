@@ -105,9 +105,11 @@ class MainApp(MDApp):
 
     def prefer_text(self):
         self.text_prefer = ""
+        print("im inside")
         for item in self.my_dict:
             if self.my_dict[item]==True:
                 self.text_prefer+=scraper(item)
+                print(item+" done")
         self.root.get_screen("second").ids["text_prefer"].text=self.text_prefer
 
     def show_favorites_dialog(self):

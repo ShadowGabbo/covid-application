@@ -12,13 +12,12 @@ WindowManager:
             Screen:
                 BoxLayout:
                     orientation: 'vertical'
-                    spacing: dp(8)
+                    spacing: dp(6)
                     MDToolbar:
                         title: "CovidApp"
                         elevation: 5
                         left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
-                    MDBoxLayout:
-                        size_hint_y: None
+                    BoxLayout:
                         height: mdlab.texture_size[1]
                         MDLabel:
                             halign:"center"
@@ -28,29 +27,27 @@ WindowManager:
                             font_style: "H3"
                             color: "white"
                             padding_y: 30
-
-                    GridLayout:
-                        rows:2
-                        MDBoxLayout:
+                    
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        halign: 'center'
+                        BoxLayout:
                             padding: dp(150), dp(0), dp(50), dp(0)
+
                             MDTextFieldRound:
-                                id: mdtex7
-                                width:700
+                                id: mdtext
                                 halign: "left"
-                                size_hint: None, .8
                                 font_size: 32
-                                icon_left: "search-web"
+                                icon_left:"search-web"
                                 hint_text:"Search a state"
                                 normal_color: app.theme_cls.primary_color
                                 color_active: 0, 1, 0, 1
 
-                        MDBoxLayout:   
-                            pos_hint:{"center_y":0.8,"center_x":0.8}
-                            padding: dp(950), dp(0), dp(350), dp(0)
+                        BoxLayout:   
+                            size_hint_x: .2
                             MDRoundFlatButton:
                                 id: mdbu
                                 text:"Search"
-                                size_hint: None, 1
                                 on_press: app.search_press()
                                 
                     FloatLayout:
@@ -177,20 +174,12 @@ WindowManager:
         pos_hint:{"center_y":0.8,"center_x":0.5}
         Button:
             halign:"center"
-            pos_hint:{"center_y":0.35}
             text: "Generate all the stats"
             on_press: app.prefer_text()
 
     MDBoxLayout:
-        padding: dp(20), dp(0), dp(20), dp(0)
-        pos_hint:{"center_y":0.8}
         MDLabel:
             id: text_prefer
             font_style: "H6"
             color: "white"
             text:""
-
-        
-
-    
-    
