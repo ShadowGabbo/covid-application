@@ -12,13 +12,12 @@ WindowManager:
             Screen:
                 BoxLayout:
                     orientation: 'vertical'
-                    spacing: dp(6)
+
                     MDToolbar:
                         title: "CovidApp"
                         elevation: 5
                         left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
                     BoxLayout:
-                        height: mdlab.texture_size[1]
                         MDLabel:
                             halign:"center"
                             valign:"top"
@@ -26,7 +25,6 @@ WindowManager:
                             text:"Welcome to Covid Application"
                             font_style: "H3"
                             color: "white"
-                            padding_y: 30
                     
                     BoxLayout:
                         orientation: 'horizontal'
@@ -49,28 +47,23 @@ WindowManager:
                                 id: mdbu
                                 text:"Search"
                                 on_press: app.search_press()
-                                
-                    FloatLayout:
-                        id: icon 
-                    
-                    MDBoxLayout:
-                        padding: dp(0), dp(20), dp(0), dp(20)
+
+                    BoxLayout:
+                        orientation: 'horizontal'
                         Label:
                             id: prefer
-                            halign: 'center'
                             color:"white"
-                            font_style: "H4"
+                            font_size:22
                             text:""
+                        FloatLayout:
+                            id: icon 
     
                     MDBoxLayout:
-                        size_hint_y:None
-                        halign: "center"
-                        MDLabel:
+                        Label:
                             id: info
-                            font_style:"H4"
-                            padding_x:250
+                            halign: "center"
+                            font_size:22
                             color: "white"
-                            height: 8 * dp(85)
 
                     Button:
                         size_hint_y:0.7
@@ -178,8 +171,12 @@ WindowManager:
             on_press: app.prefer_text()
 
     MDBoxLayout:
-        MDLabel:
-            id: text_prefer
-            font_style: "H6"
-            color: "white"
-            text:""
+        ScrollableLabel:
+            Label:
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
+                id: text_prefer
+                font_style: "H6"
+                color: "white"
+                text: ""

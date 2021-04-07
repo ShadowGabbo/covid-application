@@ -8,6 +8,8 @@ import pickle
 from kivymd.uix.button import MDIconButton
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.screenmanager import ScreenManager,Screen
+from kivy.uix.scrollview import ScrollView
+from kivy.properties import StringProperty
 
 class SecondWindow(Screen):
     pass
@@ -20,6 +22,9 @@ class FirstWindow(Screen):
 
 class Blank_Page(Screen):
     pass
+
+class ScrollableLabel(ScrollView):
+    text = StringProperty('')
 
 class MainApp(MDApp):
     count = 0
@@ -45,7 +50,7 @@ class MainApp(MDApp):
             button = MDIconButton()
             button.icon = "star-outline"
             self.button_ = button
-            button.pos_hint = {"center_x": 0.6, "center_y": 0}
+            button.pos_hint = {"center_y": .5,"x":.0}
             self.root.get_screen("first").ids['icon'].add_widget(button)
             button.bind(on_press=self.icon_press)
         self.scraping()
@@ -106,9 +111,13 @@ class MainApp(MDApp):
     def prefer_text(self):
         self.text_prefer = ""
         print("im inside")
+        count = 0
         for item in self.my_dict:
+            count+=1
+            if count==1:
+                self.text_prefer+="All stats of prefer states\n"
             if self.my_dict[item]==True:
-                self.text_prefer+=scraper(item)
+                self.text_prefer+=scraper(item)+"--------------------------------------------------------------------------------------\n"
                 print(item+" done")
         self.root.get_screen("second").ids["text_prefer"].text=self.text_prefer
 
